@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transfered Patient Appointment System</title>
+    <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/images/fav.jpg">
+
+    <link href="{% static "assets/css/bootstrap.min.css" %}"rel="stylesheet" media="all">
+    <link href="{% static "assets/css/fontawsom-all.min.css" %}"rel="stylesheet" media="all">
+    <link href="{% static "assets/plugins/grid-gallery/css/grid-gallery.min.css" %}"rel="stylesheet" media="all">
+    <link href="{% static "assets/css/style.css" %}"rel="stylesheet" media="all">
+<!--    -->
+<!--    <link rel="stylesheet" href="assets/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="assets/css/fontawsom-all.min.css">-->
+<!--    <link rel="stylesheet" href="assets/plugins/grid-gallery/css/grid-gallery.min.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />-->
+</head>
+
+<body>
+        <header class="continer-fluid ">
+             {% include "./includes/headerTop.html" %}
+           
+        </header>
+
+
+    <!-- ################# Slider Starts Here#######################--->
+
+    <div class="slider-detail">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{% static "assets/images/home/slide-02.jpg" %}" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class=" bounceInDown">Donate Blood & Save a Life</h5>
+                        <p class=" bounceInLeft"></p>
+
+                        <div class=" vbh">
+
+                            <!-- <div class="btn btn-success  bounceInUp"> Book Appointment </div> -->
+                            <div class="btn btn-success  bounceInUp"> Contact US </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static "assets/images/home/slide-02.jpg" %}" alt="Third slide">
+                    <div class="carousel-caption vdg-cur d-none d-md-block">
+                        <h5 class=" bounceInDown">Donate Blood & Save a Life</h5>
+                        <p class=" bounceInLeft"></p>
+
+                        <div class=" vbh">
+
+                            <!-- <div class="btn btn-danger  bounceInUp"> Donate Now </div> -->
+                            <div class="btn btn-danger  bounceInUp"> Contact US </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+
+    </div>
+
+    <!--*************** About Us Starts Here ***************-->
+   <section id="about" class="contianer-fluid about-us">
+       <div class="container">
+           <div class="row session-title">
+               <h2>About Us</h2>
+               <p>Rwanda Biomedical Center Division of National Center for Blood Transfusion</p>
+           </div>
+            <div class="row">
+                <div class="col-md-6 text">
+                    <h2>National Center for Blood Transfusion</h2>
+
+                    <p>
+                        Blood Transfusion Division has the mandate of providing safe, effective and adequate blood and
+                        blood products to all patients in need. BTD has five Regional Centers for Blood transfusion (RCBTs)
+                        located in all administrative provinces and the City of Kigali.
+
+                        Blood collection activities are carried out within 5 fixed and 568 mobile collection sites country wide.
+                        NCBT serves 66 transfusing public and private health facilities.
+                    </p>
+                    <p>
+                        Together with the Ministry of Health, the division sets national blood transfusion policies and standards, including the National Quality Assurance and Control Program and its regular monitoring.
+
+The division is responsible for organizing, supervising, and coordinating blood transfusion activities in Rwanda, promoting voluntary, non-remunerated blood donation, and analyzing, processing, and distributing blood and blood components to all hospitals in Rwanda.
+
+The division also trains and upgrades knowledge on transfusion medicine of NCBT personnel, as well as users of blood and blood components in Rwanda.
+                    </p>
+                 </div>
+                <div class="col-md-6 image">
+                    <img src="{% static "assets/images/gallery/blood-donation-2.jpg" %}" alt="">
+                </div>
+            </div>
+       </div>
+   </section>
+
+
+<!--      ################# Donation Process Start Here #######################- -->
+
+     <section id="process" class="donation-care">
+         <div class="container">
+           <div class="row session-title">
+               <h2>Donation Process</h2>
+               <center><p>The donation process from the time you donate until it reaches to the patient</p></center>
+           </div>
+            <div class="row">
+                 <div class="col-md-3 col-sm-6 vd">
+                    <div class="bkjiu">
+                     <img src="{% static "assets/images/gallery/g1.jpg" %}" alt="">
+                     <h4><b>1 - </b>Blood Collectors collects Blood</h4>
+                     <p>With the help of Red Cross blood from various donors are collected in different sites <br><br><br><br></p>
+                     <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                     </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 vd">
+                    <div class="bkjiu">
+                     <img src="{% static "assets/images/gallery/g2.jpg" %}" alt="">
+                        <h4><b>2 - </b>Blood stored safe in RBC  laboratories</h4>
+                     <p>Once Blood is already collected and arrived to the place it is supposed to go , With the help of Scientists They make sure that the blood is safe so that a patient can have it</p>
+                     <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                     </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 vd">
+                    <div class="bkjiu">
+                     <img src="{% static "assets/images/gallery/g3.jpg" %}" alt="">
+                        <h4><b>3 - </b>Blood Distribution</h4>
+                     <p>Once blood is safe, It is distributed in different hospitals according to their requests<br><br><br><br><br></p>
+                     <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                     </div>
+                 </div>
+                 <div class="col-md-3 col-sm-6 vd">
+                    <div class="bkjiu">
+                        <img src="{% static "assets/images/gallery/g4.jpg" %}" alt="">
+                        <h4><b>4 - </b>Save Life</h4>
+                         <p>When a patient arrives at the hospital, and It is in need tha blood is given to the patient according to the blood type<br><br><br><br></p>
+                         <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                 </div>
+            </div>
+
+
+         </div>
+     </section>
+
+
+
+
+         <!--################### Our Blog Starts Here #######################--->
+<!--        <div id="blog" class="blog-container contaienr-fluid">-->
+<!--            <div class="container">-->
+<!--                <div class="session-title row">-->
+<!--                  <h2>Latest Blog</h2>-->
+<!--                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit velit consectetur adipiscing elit.</p>-->
+<!--                </div>-->
+<!--                <div class="row news-row">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="news-card">-->
+<!--                            <div class="image">-->
+<!--                                <img src="assets/images/blog/blog_01.jpg" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="detail">-->
+<!--                                <h3>Latest News about Smarteye</h3>-->
+<!--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit consectetur adipiscing elit. </p>-->
+<!--                                <p class="footp">-->
+<!--                                    27 Comments <span>/</span>-->
+<!--                                    Blog Design <span>/</span>-->
+<!--                                    Read More-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="news-card">-->
+<!--                            <div class="image">-->
+<!--                                <img src="assets/images/blog/blog_02.jpg" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="detail">-->
+<!--                                <h3>Apple Launch its New Phone</h3>-->
+<!--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit consectetur adipiscing elit. </p>-->
+<!--                                <p class="footp">-->
+<!--                                    27 Comments <span>/</span>-->
+<!--                                    Blog Design <span>/</span>-->
+<!--                                    Read More-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="news-card">-->
+<!--                            <div class="image">-->
+<!--                                <img src="assets/images/blog/blog_03.jpg" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="detail">-->
+<!--                                <h3>About Windows 10 Update</h3>-->
+<!--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit consectetur adipiscing elit. </p>-->
+<!--                                <p class="footp">-->
+<!--                                    27 Comments <span>/</span>-->
+<!--                                    Blog Design <span>/</span>-->
+<!--                                    Read More-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="news-card">-->
+<!--                            <div class="image">-->
+<!--                                <img src="assets/images/blog/blog_04.jpg" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="detail">-->
+<!--                                <h3>Latest News about Smarteye</h3>-->
+<!--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit consectetur adipiscing elit. </p>-->
+<!--                                <p class="footp">-->
+<!--                                    27 Comments <span>/</span>-->
+<!--                                    Blog Design <span>/</span>-->
+<!--                                    Read More-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+      <!--*************** Footer  Starts Here *************** -->
+    <footer id="contact" class="container-fluid" style="background-color:#c0c0c0;">
+        <div class="container">
+
+            <div class="row content-ro">
+                <div class="col-lg-4 col-md-12 footer-contact">
+                    <h2>Contact Informatins</h2>
+                    <div class="address-row">
+                        <div class="icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="detail">
+                            <p>Rwanda Biomedical Center (RBC)
+                                23VV+3MM · 0788 202 080
+                                 Open ⋅ Closes 5PM</p>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <div class="icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="detail">
+                            <p>sales@smarteyeapps.com <br> support@smarteyeapps.com</p>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <div class="icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="detail">
+                            <p>+91 9751791203 <br> +91 9159669599</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 footer-links">
+                   <div class="row no-margin mt-2">
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li>Home</li>
+                        <li>About Us</li>
+                        <li>Contacts</li>
+                        <li>Pricing</li>
+                        <li>Gallery</li>
+                        <li>eatures</li>
+
+                    </ul>
+                    </div>
+                   <div class="row no-margin mt-1">
+                       <h2 class="m-t-2">More Products</h2>
+                     <ul>
+                        <li>Forum PHP Script</li>
+                        <li>Edu Smart</li>
+                        <li>Smart Event</li>
+                        <li>Smart School</li>
+
+
+                    </ul>
+                   </div>
+
+                </div>
+                <div class="col-lg-4 col-md-12 footer-form">
+                    <div class="form-card">
+                        <div class="form-title">
+                            <h4>Quick Message</h4>
+                        </div>
+                        <div class="form-body">
+                            <input type="text" placeholder="Enter Name" class="form-control">
+                            <input type="text" placeholder="Enter Mobile no" class="form-control">
+                            <input type="text" placeholder="Enter Email Address" class="form-control">
+                            <input type="text" placeholder="Your Message" class="form-control">
+                            <button class="btn btn-sm btn-primary w-100">Send Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copy">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <p>Copyright © 2022 | Rwanda Biomedical Center.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 socila-link">
+                        <ul>
+                            <li><a><i class="fab fa-github"></i></a></li>
+                            <li><a><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a><i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a><i class="fab fa-twitter"></i></a></li>
+                            <li><a><i class="fab fa-facebook-f"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+    <script src="{% static "assets/js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "assets/js/popper.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "assets/plugins/grid-gallery/js/grid-gallery.min.js" %}"></script>
+    <script src="{% static "assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js" %}"></script>
+    <script src="{% static "assets/js/script.js" %}"></script>
+
+</html>
