@@ -45,6 +45,7 @@ class RequestAppointment(models.Model):
     STATUS = (("approved", "Approved"), ("pending", "Pending"),("canceled", "Canceled"), ("rejected", "Rejected"))
     patient=models.ForeignKey(Patient,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)
+    transfer=models.ImageField(default="avatar.jpg")
     status = models.CharField(max_length=123, choices=STATUS, default="pending")
     created_date=models.DateTimeField(auto_now=True)
     
