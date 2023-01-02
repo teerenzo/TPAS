@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -155,7 +156,7 @@ body{
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-danger">
-        <a style="color:white;" class="navbar-brand" href="/"><i class="fa fa-heartbeat"></i>&nbsp;<font face = "Comic sans MS" size ="4">Blood Bank Management System</font></a>
+        <a style="color:white;" class="navbar-brand" href="/"><i class="fa fa-heartbeat"></i>&nbsp;<font face = "Comic sans MS" size ="4">Transfered Patient Appointment System </font></a>
         
       
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -173,25 +174,21 @@ body{
         
         <ul>
           {% if user.is_authenticated %}
+          
           <li><a style="text-decoration:none;" href="/dashboard"><i class="fas fa-home"></i>Dashboard</a></li>
             
-            {% if user.groups.first.name == 'admin'  %}
-                <li><a style="text-decoration:none;" href="/collectors"><i class="fas fa-user"></i>Collectors</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Blood Requested</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-hand-holding-water"></i>Blood Stock</a></li>
-            {% endif %}
           <!-- hospital-->
             {% if user.groups.first.name == "hospital" %}
             
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Request</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Blood Requested</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Achieved</a></li>
+                <li><a style="text-decoration:none;" href="/requests"><i class="fas fa-sync-alt"></i>Request</a></li>
+                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Services</a></li>
+                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Doctors</a></li>
             {% endif %}
                 
-            {% if user.groups.first.name == 'collector' %}
+            {% if user.groups.first.name == 'patient' %}
                                            <!-- collector -->
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-hand-holding-medical"></i>Donations</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-history"></i>History</a></li> 
+                <li><a style="text-decoration:none;" href="/requests"><i class="fas fa-hand-holding-medical"></i>Appointments</a></li>
+              
             {% endif %}
           
           {% endif %}
@@ -210,9 +207,92 @@ body{
     </div>
 </div>
 
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployee" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+       <form action="/saveAppointment" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="userid" value="{{user.id}}" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Request Appointment</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+               <!-- Form Group (userID)-->
+  
+ 
+
+    <!-- Form Row        -->
+     <div class="row gx-3 mb-3">
+    <!-- Form Group (location)-->
+      <div class="col-md-6">
+                <label class="small mb-1" for="inputProvince">Hospital</label>
+                <select class="form-control form-control-solid" id="hospital" name="hospital" onchange="getService()" required>
+         <option disabled selected>Select Hospital</option>
+         {% for data in hospital %}
+         <option value="{{data.id}}" >{{data}}</option>
+         {% endfor%}
+        
+       </select>  
+    </div>
+       <!-- Form Row-->
+       <div class="col-md-6"  >
+        <label class="small mb-1" for="inputProvince" >Service</label>
+        <select  id="service" class="form-control form-control-solid" name="service" required>
+
+
+        </select>
+   
+</div>
+  
+ 
+      <div class="mb-3">
+         <label class="small mb-1" for="inputProfile">Upload picture</label>
+       <input class="form-control" id="inputProfile" type="file" name="file" required/>
+      </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Request</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
+       </form>
+      </div>
+  </div>
+</div>
+<script>
+   const getService = () =>{
+    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+     const reference=document.getElementById('hospital')
+     var hospital= reference.value
+     $.ajax({
+        url:"/getService",
+        type:"post",
+        data:"hospital="+hospital,
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        success:function(data){
+          $("#service").html(data);
+           
+        }
+     });
+    }
+    function getCookie(c_name)
+{
+    if (document.cookie.length > 0)
+    {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1)
+        {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+ }
+  </script>
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

@@ -5,7 +5,7 @@
       
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Blood Bank Management System</title>
+    <title>Transfered Patient Appointment System</title>
     <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="assets/images/fav.jpg">
@@ -39,7 +39,7 @@
             <br><br><br>
             <div class="card card-5"> 
                 <div class="card-heading">
-                    <h2 class="title">Signup</h2>
+                    <h2 class="title">Signup as Patient</h2>
                 </div>
                 {% for message in messages %}
     
@@ -52,7 +52,25 @@
                 <div class="card-body">
                     <form method="POST" >
                         {% csrf_token %}
+                        <div class="form-row">
+                            <div class="name">Names</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="text" name="name" class="input--style-5" id="" placeholder="enter Your Name">
+                                  
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="name">phone number</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input type="text" name="address" class="input--style-5" id="" placeholder="078 ........">
+                                  
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="name">Email</div>
                             <div class="value">
