@@ -348,19 +348,7 @@
 
   <script>
 
-    const getService = () =>{
-     const reference=getElementById('hospital')
-     var hospital= reference.value
-     $.ajax({
-        url:"/getService",
-        type:"post",
-        data:"hospital="+hospital,
-        success:function(data){
-          $("#show-employees").html(data);
-           
-        }
-     });
-    }
+ 
     $(hospital).ready(function(){
         $('.btn-default').click(function(){
          
