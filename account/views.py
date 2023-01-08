@@ -117,6 +117,68 @@ def saveAppointment(request):
 
         return redirect('requests')
 
+def saveService(request):
+     if request.method=='POST' :
+        userid=request.POST.get('userid')
+        user=User.objects.get(id=userid)
+        name=request.POST.get('service')
+        service=Service()
+        service.hospital=Hospital.objects.get(user=user)
+        service.name=name
+        service.save()
+
+        return redirect('services')
+
+def approveRequest(request):
+     if request.method=='POST' :
+        requestId=request.POST.get('requestId')
+        doctorId=request.POST.get('doctor')
+        request1=RequestAppointment.objects.get(id=requestId)
+        doctor=Doctor.objects.get(id=doctorId)
+        request1.status="approved"
+        request1.save()
+        date=request.POST.get('date')
+        time=request.POST.get('time')
+        approvedAppointment=ApprovedAppointment()
+        approvedAppointment.date=date
+        approvedAppointment.time=time
+        approvedAppointment.doctor=doctor
+        approvedAppointment.request=request1
+        approvedAppointment.save()
+
+        return redirect('requests')
+
+
+
+def saveDoctor(request):
+     if request.method=='POST' :
+        email=request.POST.get('email')
+        names=request.POST.get('names')
+        tel=request.POST.get('tel')
+        userid=request.POST.get('userid')
+        user=User.objects.get(id=userid)
+        service=request.POST.get('service')
+        group = Group.objects.get(name="hospital")
+        users = User.objects.create_user(
+                                        email=email, password="password@123", username=email)
+        users.save()
+        users.groups.add(group)
+        doctor=Doctor()
+        doctor.user=users
+        doctor.names=names
+        doctor.email=email
+        doctor.tel=tel
+        doctor.service=Service.objects.get(id=service)
+        doctor.hospital=Hospital.objects.get(user=user)
+        
+        doctor.save()
+        
+
+
+
+
+        return redirect('doctors')
+        
 def dashboard(request):
       appointments= RequestAppointment.objects.all()
       print(appointments)
@@ -128,16 +190,41 @@ def requests(request):
       print(appointments)
       return render(request,'site/dashboard/requests.html',{"appointments":appointments,"hospital":hospital})
 
+def services(request):
+      services= Service.objects.all()
+      print(services)
+      return render(request,'site/dashboard/services.html',{"services":services})      
+
+def doctors(request):
+      doctors= Doctor.objects.all()
+      services= Service.objects.all()
+      print(doctors)
+      return render(request,'site/dashboard/doctors.html',{"doctors":doctors,"services":services})      
+
 
 
 def getServices(request):
      if request.method=='POST' :
         hospitalId=request.POST.get('hospital')
         service=Service.objects.filter(Q(id=hospitalId))
-        print(service)
         return render(request,'site/includes/services.html',{"services":service})
 
+def getSingleRequest(request):
+    if request.method=='POST' :
+      requestId=request.POST.get('requestId')
+      print(requestId+"hello")
+      requests= RequestAppointment.objects.get(id=requestId)
+      print(requests)
+      return render(request,'site/includes/transfer.html',{"requests":requests})
+
+def SingleRequest(request):
+    if request.method=='POST' :
+      requestId=request.POST.get('requestId')
+      requests= RequestAppointment.objects.get(id=requestId)
+      doctors= Doctor.objects.filter(Q(service=requests.service))
+      return render(request,'site/includes/request.html',{"requests":requests,"doctors":doctors})      
 
 def logoutUser(request):
+
     logout(request)
     return redirect('')

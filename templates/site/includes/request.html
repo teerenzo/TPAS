@@ -1,0 +1,25 @@
+{% load static %}
+  <!-- Form Row        -->
+  <div class="row gx-3 mb-3">
+    <!-- Form Group (location)-->
+      <div class="col-md-6">
+                <label class="small mb-1" for="inputProvince">Date</label>
+            <input type="date" class="form-control" name="date" >
+            <input type="hidden" value="{{requests.id}}" class="form-control" name="requestId" >
+            
+    </div>
+    <div class="col-md-6">
+        <label class="small mb-1" for="inputProvince">Time</label>
+    <input type="time" class="form-control" name="time" >
+</div>
+       <!-- Form Row-->
+       <div class="col-md-6"  >
+        <label class="small mb-1" for="inputProvince" >Doctor with {{requests.service}} Service</label>
+        <select  id="service" class="form-control form-control-solid" name="doctor" required>
+            <option disabled selected>Select Hospital</option>
+{% for data in doctors %}
+   <option value="{{data.id}}">{{data}}</option>
+   {% endfor %}
+        </select>
+   
+    </div>

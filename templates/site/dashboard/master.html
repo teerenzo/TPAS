@@ -181,8 +181,8 @@ body{
             {% if user.groups.first.name == "hospital" %}
             
                 <li><a style="text-decoration:none;" href="/requests"><i class="fas fa-sync-alt"></i>Request</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Services</a></li>
-                <li><a style="text-decoration:none;" href=""><i class="fas fa-sync-alt"></i>Doctors</a></li>
+                <li><a style="text-decoration:none;" href="/services"><i class="fas fa-sync-alt"></i>Services</a></li>
+                <li><a style="text-decoration:none;" href="/doctors"><i class="fas fa-sync-alt"></i>Doctors</a></li>
             {% endif %}
                 
             {% if user.groups.first.name == 'patient' %}
@@ -207,15 +207,17 @@ body{
     </div>
 </div>
 
-<!-- Add Employee Modal -->
-<div class="modal fade" id="addEmployee" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Add Service Modal -->
+<div class="modal fade" id="addService" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<br>
+<br>
   <div class="modal-dialog  modal-lg" role="document">
       <div class="modal-content">
-       <form action="/saveAppointment" method="post" enctype="multipart/form-data">
+       <form action="/saveService" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="userid" value="{{user.id}}" >
+        <input type="hidden" name="userid" value="{{user.id}}" >
           <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Request Appointment</h5>
+              <h5 class="modal-title" id="staticBackdropLabel">Add Service</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span></button>
           </div>
@@ -228,37 +230,55 @@ body{
      <div class="row gx-3 mb-3">
     <!-- Form Group (location)-->
       <div class="col-md-6">
-                <label class="small mb-1" for="inputProvince">Hospital</label>
-                <select class="form-control form-control-solid" id="hospital" name="hospital" onchange="getService()" required>
-         <option disabled selected>Select Hospital</option>
-         {% for data in hospital %}
-         <option value="{{data.id}}" >{{data}}</option>
-         {% endfor%}
-        
-       </select>  
+                <label class="small mb-1" for="inputProvince">Service.</label>
+               <input type="text"  class="form-control" name="service" id="service">
+         
     </div>
        <!-- Form Row-->
        <div class="col-md-6"  >
-        <label class="small mb-1" for="inputProvince" >Service</label>
-        <select  id="service" class="form-control form-control-solid" name="service" required>
-
-
-        </select>
-   
-</div>
-  
- 
-      <div class="mb-3">
-         <label class="small mb-1" for="inputProfile">Upload picture</label>
-       <input class="form-control" id="inputProfile" type="file" name="file" required/>
-      </div>
+       
+    </div>
           </div>
-          <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Request</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
+          <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Save</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
        </form>
       </div>
   </div>
 </div>
+
+
 <script>
+  const getRequest = (requestId) =>{
+    console.log(requestId)
+    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+     $.ajax({
+        url:"/getSingleRequest",
+        type:"post",
+        data:"requestId="+requestId,
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        success:function(data){
+    //console.log(data)
+          $("#viewTransfer1").html(data);
+           
+        }
+     });
+    }
+
+    const getSingleRequest = (requestId) =>{
+      console.log(requestId)
+      var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+       $.ajax({
+          url:"/SingleRequest",
+          type:"post",
+          data:"requestId="+requestId,
+          headers: { "X-CSRFToken": getCookie("csrftoken") },
+          success:function(data){
+      //console.log(data)
+            $("#singleRequest").html(data);
+             
+          }
+       });
+      }
+
    const getService = () =>{
     var csrftoken = $("[name=csrfmiddlewaretoken]").val();
      const reference=document.getElementById('hospital')
