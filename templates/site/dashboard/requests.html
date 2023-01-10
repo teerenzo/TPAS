@@ -1,0 +1,199 @@
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body> -->
+    {% extends './master.html' %}
+    {% block content %}
+    <br><br>
+       <!-- Begin Page Content -->
+       <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">
+          {% if user.groups.first.name != "hospital" %}
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addEmployee">
+        <i class="fas fa-plus-circle fa-sm text-white-50"></i> New</a>
+        {%endif%}
+        </h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Requests</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>created date</th>
+                <th>Hospital</th>
+                <th>Service</th>
+              
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if user.groups.first.name == 'patient' %}
+              {% with value=0 %}
+        {% for data in appointments %}
+            {{user}}
+               {% if data.patient.user.id == user.id %}
+               
+      
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{data.created_date}}</td>
+                <td>{{data.service.hospital}}</td>
+                <td>{{data.service}}</td>
+                <td>{{data.status}}</td>
+                <td>
+                {% comment %} <a class="btn btn-datatable btn-default" href="#" data-toggle="modal" data-target="#addEmployee" title="Update Employee"><i class="fas fa-edit"></i></a> {% endcomment %}
+                <a class="btn btn-datatable" title="Delete Employee" disabled onclick="if (confirm('Do yo want to delete <%=rs.getString(3) %> <%=rs.getString(4) %> from your employees? Press Ok to continue.')) {window.location='deleteEmployee.jsp?id=<%=rs.getString(1)%>'}"><i class="fas fa-trash"></i></a>
+               </td>
+              </tr>
+              {% endif %}
+
+              {% endfor%}
+              {% endwith %}
+
+              {%   else  %}
+
+              {% with value=0 %}
+              {% for data in appointments %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{data.created_date}}</td>
+                      <td>{{data.service.hospital}}</td>
+                      <td>{{data.service}}</td>
+                      <td>{{data.status}}</td>
+                      <td>
+                        {% if user.groups.first.name == "hospital" %}
+                          <a class="btn btn-datatable btn-default" href="#" data-toggle="modal" data-target="#approve" title="Update Employee" onclick="getSingleRequest({{data.id}})"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-datatable btn-default" href="#" data-toggle="modal" data-target="#viewTransfer" title="" onclick="getRequest({{data.id}})"><i class="fas fa-eye"></i></a>
+                          {%else%}
+                      <a class="btn btn-datatable" title="Delete Employee" disabled onclick="if (confirm('Do yo want to delete <%=rs.getString(3) %> <%=rs.getString(4) %> from your employees? Press Ok to continue.')) {window.location='deleteEmployee.jsp?id=<%=rs.getString(1)%>'}"><i class="fas fa-trash"></i></a>
+                      {%endif%}
+                     </td> 
+                    </tr>
+      
+                    {% endfor%}
+                    {% endwith %}
+
+              {% endif %}
+
+
+
+    
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ <!-- Add viewTransfer Modal -->
+ <div class="modal" id="viewTransfer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Transfer</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+      </div>
+      <div class="row" id="viewTransfer1" style="width:100%;">
+        <h3>hello</h3>
+      </div>
+      </div>
+  </div>
+</div>
+
+ <!-- Add viewTransfer Modal -->
+ <div class="modal" id="approve" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        
+        <form action="/approveRequest" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="hidden" name="userid" value="{{user.id}}" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Approve Appointment</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body" id="singleRequest">
+    
+    
+            </div>
+            <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Approve</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
+         </form>
+    
+      </div>
+  </div>
+</div>
+
+  <!-- Add RequesyAppointmen Modal -->
+<div class="modal fade" id="addEmployee" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="">
+      <div class="modal-content">
+       <form action="/saveAppointment" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="userid" value="{{user.id}}" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Request Appointment</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+               <!-- Form Group (userID)-->
+  
+ 
+
+    <!-- Form Row        -->
+     <div class="row gx-3 mb-3">
+    <!-- Form Group (location)-->
+      <div class="col-md-6">
+                <label class="small mb-1" for="inputProvince">Hospital</label>
+                <select class="form-control form-control-solid" id="hospital" name="hospital" onchange="getService()" required>
+         <option disabled selected>Select Hospital</option>
+         {% for data in hospital %}
+         <option value="{{data.id}}" >{{data}}</option>
+         {% endfor%}
+        
+       </select>  
+    </div>
+       <!-- Form Row-->
+       <div class="col-md-6"  >
+        <label class="small mb-1" for="inputProvince" >Service</label>
+        <select  id="service" class="form-control form-control-solid" name="service" required>
+
+
+        </select>
+   
+    </div>
+  
+ 
+      <div class="mb-3">
+         <label class="small mb-1" for="inputProfile">Upload picture</label>
+       <input class="form-control" id="inputProfile" type="file" name="file" required/>
+      </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Request</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
+       </form>
+      </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+<!-- </body>
+</html> -->

@@ -1,0 +1,140 @@
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body> -->
+  {% extends './master.html' %}
+  {% block content %}
+  <br><br>
+     <!-- Begin Page Content -->
+     <div class="container-fluid">
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">
+
+          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addDoctor">
+      <i class="fas fa-plus-circle fa-sm text-white-50"></i> New</a>
+      
+      </h1>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Doctors</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Names</th>
+              <th>Telephone</th>
+              <th>Email</th>
+              <th>Service</th>
+          
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+
+            {% with value=0 %}
+            {% for data in doctors %}
+            {% if data.hospital.user.id == user.id %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{data.names}}</td>
+                    <td>{{data.tel}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.service}}</td>
+                    <td>
+                        <a class="btn btn-datatable btn-default" href="#" data-toggle="modal" data-target="#addEmployee" title="Update Employee"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-datatable" title="Delete Employee" disabled onclick="if (confirm('Do yo want to delete <%=rs.getString(3) %> <%=rs.getString(4) %> from your employees? Press Ok to continue.')) {window.location='deleteEmployee.jsp?id=<%=rs.getString(1)%>'}"><i class="fas fa-trash"></i></a>
+
+                   </td>
+                  </tr>
+                  {% endif %}
+                  {% endfor%}
+                  {% endwith %}
+
+            
+
+
+
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Add RequesyAppointmen Modal -->
+<div class="modal fade" id="addDoctor" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+       <form action="/saveDoctor" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="userid" value="{{user.id}}" >
+          <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Request Appointment</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+               <!-- Form Group (userID)-->
+               <div class="row gx-3 mb-3">
+               <div class="col-md-6"  >
+      <div class="mb-3">
+         <label class="small mb-1" for="inputProfile">Names</label>
+       <input class="form-control" id="inputProfile" type="text" name="names" required/>
+      </div>
+    </div>
+    <div class="col-md-6"  >
+
+      <div class="mb-3">
+        <label class="small mb-1" for="inputProfile">Telephone</label>
+      <input class="form-control" id="inputProfile" type="text" name="tel" required/>
+     </div>
+    </div>
+  </div>
+
+    <!-- Form Row        -->
+     <div class="row gx-3 mb-3">
+    <!-- Form Group (location)-->
+      <div class="col-md-6">
+                <label class="small mb-1" for="inputProvince">Email</label>
+                <input class="form-control" id="inputProfile" type="text" name="email" required/> 
+    </div>
+       <!-- Form Row-->
+       <div class="col-md-6"  >
+        <label class="small mb-1" for="inputProvince" >Service</label>
+        <select  id="service" class="form-control form-control-solid" name="service" required>
+          <option disabled selected>Select Service</option>
+          {% for data in services %}
+          {% if data.hospital.user.id == user.id %}
+          <option value="{{data.id}}" >{{data}}</option>
+        {% endif %}
+                      {% endfor%}
+        </select>
+   
+    </div>
+  
+ 
+          </div>
+          <div class="modal-footer"><button class="btn btn-primary btn-sm" type="submit" value="submit">Request</button> <button class="btn btn-default btn-sm" type="button" data-dismiss="modal">Close</button></div>
+       </form>
+      </div>
+  </div>
+</div>
+{% endblock content %}
+<!-- </body>
+</html> -->
