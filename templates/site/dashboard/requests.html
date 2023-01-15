@@ -35,6 +35,7 @@
                 <th>#</th>
                 <th>created date</th>
                 <th>Hospital</th>
+                <th>Names</th>
                 <th>Service</th>
               
                 <th>Status</th>
@@ -45,7 +46,7 @@
               {% if user.groups.first.name == 'patient' %}
               {% with value=0 %}
         {% for data in appointments %}
-            {{user}}
+        
                {% if data.patient.user.id == user.id %}
                
       
@@ -53,11 +54,12 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{data.created_date}}</td>
                 <td>{{data.service.hospital}}</td>
+                <td>{{data.patient}}</td>
                 <td>{{data.service}}</td>
                 <td>{{data.status}}</td>
                 <td>
                 {% comment %} <a class="btn btn-datatable btn-default" href="#" data-toggle="modal" data-target="#addEmployee" title="Update Employee"><i class="fas fa-edit"></i></a> {% endcomment %}
-                <a class="btn btn-datatable" title="Delete Employee" disabled onclick="if (confirm('Do yo want to delete <%=rs.getString(3) %> <%=rs.getString(4) %> from your employees? Press Ok to continue.')) {window.location='deleteEmployee.jsp?id=<%=rs.getString(1)%>'}"><i class="fas fa-trash"></i></a>
+                <a class="btn btn-datatable" title="Delete Employee" disabled onclick="if (confirm('Do yo want to delete from your employees? Press Ok to continue.')) {window.location='deleteEmployee.jsp?id=<%=rs.getString(1)%>'}"><i class="fas fa-trash"></i></a>
                </td>
               </tr>
               {% endif %}
@@ -73,6 +75,7 @@
                       <td>{{forloop.counter}}</td>
                       <td>{{data.created_date}}</td>
                       <td>{{data.service.hospital}}</td>
+                                 <td>{{data.patient}}</td>
                       <td>{{data.service}}</td>
                       <td>{{data.status}}</td>
                       <td>
@@ -147,7 +150,7 @@
       <div class="modal-content">
        <form action="/saveAppointment" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="userid" value="{{user.id}}" >
+        <input type="hidden" name="userid" value="{{user.id}}" >
           <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">Request Appointment</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">

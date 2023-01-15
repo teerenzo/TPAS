@@ -206,7 +206,9 @@ def doctors(request):
 def getServices(request):
      if request.method=='POST' :
         hospitalId=request.POST.get('hospital')
-        service=Service.objects.filter(Q(id=hospitalId))
+        hospital=Hospital.objects.get(id=hospitalId)
+        service=Service.objects.filter(Q(hospital=hospital))
+        print(service)
         return render(request,'site/includes/services.html',{"services":service})
 
 def getSingleRequest(request):
